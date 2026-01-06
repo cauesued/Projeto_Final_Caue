@@ -1,7 +1,6 @@
 import streamlit as st
 
-.card-produto img {
-    width: 200px;                    
+.card-produto img {               
     border-radius: 10px;             
     margin-bottom: 10px;
     }
