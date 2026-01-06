@@ -4,47 +4,47 @@ st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4J
 
 st.title("Projeto Final: Calculadora")
 
-if 'last_clicked' not in st.session_state:
-    st.session_state.last_clicked = None
+if 'display' not in st.session_state:
+    st.session_state.display = ""
 
-def click_button(number):
-    """Função de callback para atualizar o estado quando um botão é clicado."""
-    st.session_state.last_clicked = number
+def press_button(value):
+    """Função para atualizar o display quando um botão é pressionado."""
+    st.session_state.display += str(value)
 
-# Organiza os botões em uma grade 3x3
-# Cada linha é uma combinação de colunas
-col1, col2, col3 = st.columns(3)
+st.title("Calculadora Simples com Streamlit")
 
-# Linha 1 (7, 8, 9)
+# 1. Linha acima para exibir o resultado (usando st.text_input para uma aparência de display)
+# Desabilitado para edição manual, apenas para visualização
+st.text_input("Display", value=st.session_state.display, disabled=True, label_visibility="hidden")
+
+# 2. Layout dos botões em uma grade 3x3
+row1_cols = st.columns(3)
+with row1_cols[0]:
+    st.button("7", on_click=press_button, args=[7])
+with row1_cols[1]:
+    st.button("8", on_click=press_button, args=[8])
+with row1_cols[2]:
+    st.button("9", on_click=press_button, args=[9])
+
+row2_cols = st.columns(3)
+with row2_cols[0]:
+    st.button("4", on_click=press_button, args=[4])
+with row2_cols[1]:
+    st.button("5", on_click=press_button, args=[5])
+with row2_cols[2]:
+    st.button("6", on_click=press_button, args=[6])
+
+row3_cols = st.columns(3)
+with row3_cols[0]:
+    st.button("1", on_click=press_button, args=[1])
+with row3_cols[1]:
+    st.button("2", on_click=press_button, args=[2])
+with row3_cols[2]:
+    st.button("3", on_click=press_button, args=[3])
+
+# Adicione um botão '0' e 'Limpar' abaixo, se desejar
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.button("7", use_container_width=True)
-with col2:
-    st.button("8", use_container_width=True)
+    st.button("0", on_click=press_button, args=[0])
 with col3:
-    st.button("9", use_container_width=True)
-
-# Linha 2 (4, 5, 6)
-col4, col5, col6 = st.columns(3)
-with col4:
-    st.button("4", use_container_width=True)
-with col5:
-    st.button("5", use_container_width=True)
-with col6:
-    st.button("6", use_container_width=True)
-
-# Linha 3 (1, 2, 3)
-col7, col8, col9 = st.columns(3)
-with col7:
-    st.button("1", use_container_width=True)
-with col8:
-    st.button("2", use_container_width=True)
-with col9:
-    st.button("3", use_container_width=True)
-
-if st.session_state.last_clicked is not None:
-    st.success(f"Você clicou no botão: {st.session_state.last_clicked}")
-else:
-    st.info("Clique em um botão para começar.")
-
-streamlit run app_calculadora.py
+    st.button("C", on_click=lambda: st.session_state.update(display=""))
