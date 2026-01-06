@@ -4,46 +4,64 @@ st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4J
 
 st.title("Projeto Final: Calculadora")
 
-# Configuração da página
-st.set_page_config(page_title="Calculadora Básica 2026", page_icon="🔢")
+if 'current_value' not in st.session_state:
+    st.session_state.current_value = ""
+if 'result' not in st.session_state:
+    st.session_state.result = None
 
-st.title("🔢 Calculadora Básica")
-st.write("Insira os números e escolha a operação desejada.")
+# Função para lidar com o clique dos botões numéricos e de operação
+def button_click(value):
+    if value == "=":
+        try:
+            # Avalia a expressão matemática no current_value
+            st.session_state.result = eval(st.session_state.current_value)
+            st.session_state.current_value = str(st.session_state.result)
+        except Exception:
+            st.session_state.result = "Erro"
+    elif value == "C":
+        # Limpa o display
+        st.session_state.current_value = ""
+        st.session_state.result = None
+    elif value == "%":
+        # Adiciona o sinal de porcentagem (requer tratamento mais complexo para lógica real de %)
+        # Para uma calculadora básica, trataremos como concatenação para simplificar
+        st.session_state.current_value += value
+    else:
+        # Adiciona o valor/operação ao display
+        st.session_state.current_value += str(value)
 
-# Entradas de dados
-col1, col2 = st.columns(2)
+# Exibe o campo de texto principal para o resultado/entrada
+display_text = st.session_state.current_value
+if st.session_state.result is not None and st.session_state.result != "Erro":
+    display_text = str(st.session_state.result)
+st.text_input("Resultado", value=display_text, key="display", disabled=True)
+
+# Define o layout dos botões em colunas
+# Criaremos 4 colunas por linha
+col1, col2, col3, col4 = st.columns(4)
+
 with col1:
-    num1 = st.number_input("Primeiro número:", value=0.0)
+    st.button("7", on_click=button_click, args=["7"])
+    st.button("4", on_click=button_click, args=["4"])
+    st.button("1", on_click=button_click, args=["1"])
+    st.button("C", on_click=button_click, args=["C"])
+
 with col2:
-    num2 = st.number_input("Segundo número:", value=0.0)
+    st.button("8", on_click=button_click, args=["8"])
+    st.button("5", on_click=button_click, args=["5"])
+    st.button("2", on_click=button_click, args=["2"])
+    st.button("0", on_click=button_click, args=["0"])
 
-st.markdown("---")
+with col3:
+    st.button("9", on_click=button_click, args=["9"])
+    st.button("6", on_click=button_click, args=["6"])
+    st.button("3", on_click=button_click, args=["3"])
+    st.button(".", on_click=button_click, args=["."])
 
-# Botões de operação
-st.write("### Operações")
-operacao_col1, operacao_col2, operacao_col3, operacao_col4 = st.columns(4)
-
-resultado = None
-
-with operacao_col1:
-    if st.button("➕ Somar", use_container_width=True):
-        resultado = num1 + num2
-
-with operacao_col2:
-    if st.button("➖ Subtrair", use_container_width=True):
-        resultado = num1 - num2
-
-with operacao_col3:
-    if st.button("✖️ Multiplicar", use_container_width=True):
-        resultado = num1 * num2
-
-with operacao_col4:
-    if st.button("➕ Dividir", use_container_width=True):
-        if num2 != 0:
-            resultado = num1 / num2
-        else:
-            st.error("Erro: Divisão por zero!")
-
-# Exibição do Resultado
-if resultado is not None:
-    st.success(f"### Resultado: {resultado}")
+with col4:
+    st.button("÷", on_click=button_click, args=["/"])
+    st.button("×", on_click=button_click, args=["*"])
+    st.button("-", on_click=button_click, args=["-"])
+    st.button("+", on_click=button_click, args=["+"])
+    st.button("%", on_click=button_click, args=["%"]) # O uso real de % exigiria lógica mais avançada
+    st.button("=", on_click=button_click, args=["="])
