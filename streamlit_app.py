@@ -46,3 +46,5 @@ if st.session_state.last_clicked is not None:
     st.success(f"Você clicou no botão: {st.session_state.last_clicked}")
 else:
     st.info("Clique em um botão para começar.")
+
+streamlit run app_calculadora.py
