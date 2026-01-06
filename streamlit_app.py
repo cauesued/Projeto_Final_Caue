@@ -13,10 +13,4 @@ for row in range(3):
             if st.button(f"{num}", key=f"btn_{num}"):
                 st.write(f"Você clicou no número: {num}")
 
-import streamlit as st
 
-cols = st.columns(9)
-for i in range(9):
-    num = i + 1
-    if cols[i].button(str(num), key=f"num_{num}"):
-        st.success(f"Botão {num} pressionado!")
