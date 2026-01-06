@@ -39,5 +39,5 @@ st.number_input(
     'Ou digite um valor diretamente:',
     value=st.session_state['numero_atual'],
     key='input_manual',
-    on_change=lambda: st.session_state.update({'numero_atual': st.session_state['input_manual']})al: Calculadora")
+    on_change=lambda: st.session_state.update({'numero_atual': st.session_state['input_manual']})al: Calculadora)
   
