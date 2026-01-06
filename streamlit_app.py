@@ -32,12 +32,4 @@ with col1:
 
 with col2:
     st.button('Decrementar (-1)', on_click=decrementar_numero)
-
-# Opcional: Adicionar um input numérico que também controla o valor
-# Se você quiser que o usuário digite um valor diretamente
-st.number_input(
-    'Ou digite um valor diretamente:',
-    value=st.session_state['numero_atual'],
-    key='input_manual',
-    on_change=lambda:st.session_state.update({'numero_atual': st.session_state['input_manual']})al: Calculadora)
   
