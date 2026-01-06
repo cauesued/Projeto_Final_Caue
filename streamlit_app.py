@@ -4,11 +4,16 @@ st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4J
 
 st.title("Projeto Final: Calculadora")
 
-# Container para exibir a entrada/saída (simulação de um display)
-st.container(border=True).markdown("<h3 style='text-align: right;'>0</h3>", unsafe_allow_html=True)
+if 'last_clicked' not in st.session_state:
+    st.session_state.last_clicked = None
+
+def click_button(number):
+    """Função de callback para atualizar o estado quando um botão é clicado."""
+    st.session_state.last_clicked = number
 
 # Organiza os botões em uma grade 3x3
-st.markdown("#### Teclado Numérico")
+# Cada linha é uma combinação de colunas
+col1, col2, col3 = st.columns(3)
 
 # Linha 1 (7, 8, 9)
 col1, col2, col3 = st.columns(3)
@@ -37,4 +42,7 @@ with col8:
 with col9:
     st.button("3", use_container_width=True)
 
-# Você pode adicionar mais funcionalidades e botões (0, +, -, etc.) seguindo o mesmo padrão.
+if st.session_state.last_clicked is not None:
+    st.success(f"Você clicou no botão: {st.session_state.last_clicked}")
+else:
+    st.info("Clique em um botão para começar.")
