@@ -36,8 +36,7 @@ with col2:
 
 # Opcional: Adicionar um input numérico que também controla o valor
 # Se você quiser que o usuário digite um valor diretamente
-st.number_input(
-    'Ou digite um valor diretamente:',
+st.number_input('Ou digite um valor diretamente:'),
     value=st.session_state['numero_atual'],
     key='input_manual',
 
