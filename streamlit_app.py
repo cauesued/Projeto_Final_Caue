@@ -18,7 +18,7 @@ st.title("Calculadora Simples com Streamlit")
 st.text_input("Display", value=st.session_state.display, disabled=True, label_visibility="hidden")
 
 # 2. Layout dos botões em uma grade 3x3
-row1_cols = st.columns(4)
+row1_cols = st.columns(3)
 with row1_cols[0]:
     st.button("1", on_click=press_button, args=[1])
 with row1_cols[1]:
@@ -26,7 +26,7 @@ with row1_cols[1]:
 with row1_cols[2]:
     st.button("3", on_click=press_button, args=[3])
     
-row2_cols = st.columns(4)
+row2_cols = st.columns(3)
 with row2_cols[0]:
     st.button("4", on_click=press_button, args=[4])
 with row2_cols[1]:
@@ -34,7 +34,7 @@ with row2_cols[1]:
 with row2_cols[2]:
     st.button("6", on_click=press_button, args=[6])
     
-row3_cols = st.columns(4)
+row3_cols = st.columns(3)
 with row3_cols[0]:
     st.button("7", on_click=press_button, args=[7])
 with row3_cols[1]:
@@ -43,7 +43,7 @@ with row3_cols[2]:
     st.button("9", on_click=press_button, args=[9])
 
 
-col1, col2, col3 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 with col1:
     st.button("0", on_click=press_button, args=[0])
 with col3:
