@@ -3,6 +3,7 @@ import streamlit as st
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600)
 
 st.title("Projeto Final: Calculadora")
+
 # 1. Inicialize st.session_state para armazenar o valor
 if 'numero_atual' not in st.session_state:
     st.session_state['numero_atual'] = 0
@@ -32,4 +33,13 @@ with col1:
 
 with col2:
     st.button('Decrementar (-1)', on_click=decrementar_numero)
-  
+
+# Opcional: Adicionar um input numérico que também controla o valor
+# Se você quiser que o usuário digite um valor diretamente
+st.number_input(
+    'Ou digite um valor diretamente:',
+    value=st.session_state['numero_atual'],
+    key='input_manual',
+
+streamlit run calculadora.py
+    on_change=lambda: st.session_state.update({'numero_atual': st.session_state['input_manual']})
