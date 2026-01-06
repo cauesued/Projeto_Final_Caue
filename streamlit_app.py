@@ -37,8 +37,8 @@ with col2:
 # Opcional: Adicionar um input numérico que também controla o valor
 # Se você quiser que o usuário digite um valor diretamente
 st.number_input('Ou digite um valor diretamente:'),
-    value=st.session_state['numero_atual'],
-    key='input_manual',
+     value=st.session_state['numero_atual'],
+     key='input_manual',
 
 streamlit run calculadora.py
     on_change=lambda: st.session_state.update({'numero_atual': st.session_state['input_manual']})
