@@ -4,7 +4,7 @@ st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4J
 
 st.divider() # Para criar as linhas
 
-st.title("Projeto Final: Calculadora") # O titulo 
+st.title("Projeto Final: Calculadora") # O titulo do projeto
 
 st.set_page_config(layout="wide")
 
