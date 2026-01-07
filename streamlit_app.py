@@ -15,12 +15,10 @@ if 'last_operation' not in st.session_state:
 if 'new_num' not in st.session_state:
     st.session_state['new_num'] = False
 
-# --- 2. Lógica da Calculadora ---
-
 def handle_click(char):
     """Gerencia cliques de números e operadores."""
     
-    # Lógica para limpar o visor
+    # para dar clean na tela ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     if char == 'C':
         st.session_state['current_display'] = ''
         st.session_state['total'] = 0.0
@@ -28,15 +26,14 @@ def handle_click(char):
         st.session_state['new_num'] = False
         return
 
-    # Lógica para o botão de igual
+    #Local dos buttons de =, +, -, *, / ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     if char == '=':
         if st.session_state['last_operation'] and st.session_state['current_display']:
             calculate()
             st.session_state['last_operation'] = None
-            st.session_state['new_num'] = True # Próximo clique numérico limpa o visor
+            st.session_state['new_num'] = True # faz com que limpe o visor -----------------------------------------------------------------------------------------------------------------------------------------
         return
 
-    # Lógica para operadores (+, -, *, /)
     if char in ['+', '-', '*', '/']:
         if st.session_state['current_display']:
             if st.session_state['last_operation']:
@@ -44,15 +41,15 @@ def handle_click(char):
             else:
                 st.session_state['total'] = float(st.session_state['current_display'])
             st.session_state['last_operation'] = char
-            st.session_state['new_num'] = True # Indica que o próximo dígito inicia um novo número
+            st.session_state['new_num'] = True # Apos isso se iniciara um novo numero ------------------------------------------------------------------------------------------------------------------------------
         return
 
-    # Lógica para números e ponto decimal
+    #Local dos números e pontos decimais ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     if st.session_state['new_num']:
         st.session_state['current_display'] = str(char)
         st.session_state['new_num'] = False
     else:
-        # Previne múltiplos pontos decimais
+        
         if char == '.' and '.' in st.session_state['current_display']:
             return
         st.session_state['current_display'] += str(char)
@@ -75,22 +72,16 @@ def calculate():
                 st.session_state['total'] = 0.0
                 return
 
-        # Atualiza o visor com o resultado da operação
+        #Adiciona o resultado da operação --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         st.session_state['current_display'] = str(st.session_state['total'])
     except ValueError:
         st.session_state['current_display'] = "Erro"
     except ZeroDivisionError:
         st.session_state['current_display'] = "Divisão por zero"
 
-# --- 3. Interface do Usuário (UI) ---
-
-st.title("Calculadora Streamlit 4x4")
-
-# Visor: uma linha acima dos botões
-# st.metric é usado para um visual de "visor" simples
 st.metric(label="Resultado/Visor", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
 
-# Layout da grade de botões 4x4
+#aonde esta selecionados os buttons --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 buttons = [
     ['7', '8', '9', '/'],
     ['4', '5', '6', '*'],
@@ -98,19 +89,15 @@ buttons = [
     ['C', '0', '=', '+']
 ]
 
-# Cria as colunas para o layout da grade
+# Cria as colunas de 4x4 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 for row in buttons:
-    cols = st.columns(4) # Cria 4 colunas de largura igual para cada linha
+    cols = st.columns(4) 
     for col, button_char in zip(cols, row):
-        # Cada botão chama a função handle_click com seu caractere correspondente
         with col:
             st.button(
                 button_char, 
                 on_click=handle_click, 
                 args=[button_char], 
-                use_container_width=True # Faz o botão preencher a coluna inteira
+                use_container_width=True 
             )
 
-# --- 4. Executando o Aplicativo ---
-# Para rodar o aplicativo, salve o arquivo como `app.py` e execute no terminal:
-# streamlit run app.py
