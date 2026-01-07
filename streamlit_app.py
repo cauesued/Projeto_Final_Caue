@@ -74,7 +74,7 @@ def calculate():
                 st.session_state['total'] = 0.0
                 return
 
-        st.divider()
+        
         #Adiciona o resultado da operação --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         st.session_state['current_display'] = str(st.session_state['total'])
     except ValueError:
@@ -85,6 +85,8 @@ def calculate():
 st.metric(label="Fassa sua conta aqui", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
 
 #aonde esta selecionados os buttons --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+st.divider()
+
 buttons = [
     ['7', '8', '9', '/'],
     ['4', '5', '6', '*'],
