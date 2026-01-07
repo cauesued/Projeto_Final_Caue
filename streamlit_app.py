@@ -79,7 +79,7 @@ def calculate():
     except ZeroDivisionError:
         st.session_state['current_display'] = "Divisão por zero"
 
-st.metric(label="Resultado/Visor", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
+st.metric(label="Fassa sua conta aqui", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
 
 #aonde esta selecionados os buttons --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 buttons = [
