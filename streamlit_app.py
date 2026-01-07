@@ -2,11 +2,7 @@ import streamlit as st
 
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600)
 
-st.title("Acima da linha")
-
 st.divider()
-
-st.title("Abaixo da linha")
 
 st.title("Projeto Final: Calculadora")
 
@@ -78,6 +74,7 @@ def calculate():
                 st.session_state['total'] = 0.0
                 return
 
+        st.divider()
         #Adiciona o resultado da operação --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         st.session_state['current_display'] = str(st.session_state['total'])
     except ValueError:
