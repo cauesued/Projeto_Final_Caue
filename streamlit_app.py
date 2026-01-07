@@ -65,3 +65,15 @@ with col4:
     st.button("+", on_click=button_click, args=["+"])
     st.button("%", on_click=button_click, args=["%"]) # O uso real de % exigiria lógica mais avançada
     st.button("=", on_click=button_click, args=["="])
+
+numeros = range(1, 10)
+
+# Cria colunas para dispor os botões horizontalmente
+cols = st.columns(9) # Cria 9 colunas de largura igual
+
+# Itera sobre os números e cria um botão em cada coluna
+for i, num in enumerate(numeros):
+    with cols[i]:
+        # Cada botão tem um texto (ex: '1') e uma chave única (ex: 'btn_1')
+        if st.button(str(num), key=f"btn_{num}"):
+            st.session_state['numero_selecionado'] = num
