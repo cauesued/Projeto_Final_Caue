@@ -48,7 +48,8 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-st.image("https://www.pinterest.com/pin/411235009739019131/", width=300)
+st.header("Imagem de uma URL")
+st.image("https://www.pinterest.com/pin/411235009739019131/", use_column_width=True)
 #O site ensi -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 st.divider() # Para criar as linhas
