@@ -48,7 +48,7 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-st.image('https://pt.dreamstime.com/%C3%ADcone-da-calculadora-no-fundo-escuro-image117244544', width=900) # A imagem
+st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=900) # A imagem
 #O site ensi -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 st.divider() # Para criar as linhas
