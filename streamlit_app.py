@@ -32,8 +32,26 @@ div[data-testid*="stButton"] > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Seleciona o primeiro (e geralmente único) botão dentro de um div stButton */
+div.stButton > button:first-child {
+    color: #000000; /* Define a cor do texto como preto (código hexadecimal #000000) */
+    /* Você também pode querer ajustar a cor de fundo para garantir contraste */
+    /* background-color: #f0f0f0; */
+}
+
+/* Opcional: Estiliza o botão quando o mouse passa por cima (hover) */
+div.stButton > button:hover {
+    color: #000000; /* Mantém o texto preto no hover */
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.button("Meu Botão com Texto Preto")
+
 st.write("Clique nos botões abaixo:")
-st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600) # A imagem
+st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600) # A imagem 
 
 st.divider() # Para criar as linhas
 
