@@ -1,5 +1,5 @@
 import streamlit as st
-#Detalhes do site -------------------------------------------------------------------------------------------------------------------------------------------------
+#Detalhes do site ------------------------------------------------------------------------------------------------------------------------------------------------
 st.markdown(
     """
 <style>
@@ -49,7 +49,7 @@ div.stButton > button:hover {
 """, unsafe_allow_html=True)
 
 st.image('https://pt.dreamstime.com/%C3%ADcone-da-calculadora-no-fundo-escuro-image117244544', width=600) # A imagem
-#O site ensi ------------------------------------------------------------------------------------------------------------------------------------------------------
+#O site ensi -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 st.divider() # Para criar as linhas
 
@@ -69,7 +69,7 @@ if 'new_num' not in st.session_state:
 def handle_click(char):
     """Gerencia cliques de números e operadores."""
     
-    # para dar clean na tela --------------------------------------------------------------------------------------------------------------------------------------
+    # para dar clean na tela -------------------------------------------------------------------------------------------------------------------------------------
     if char == 'C':
         st.session_state['current_display'] = ''
         st.session_state['total'] = 0.0
@@ -77,12 +77,12 @@ def handle_click(char):
         st.session_state['new_num'] = False
         return
 
-    #Local dos buttons de =, +, -, *, / ---------------------------------------------------------------------------------------------------------------------------
+    #Local dos buttons de =, +, -, *, / --------------------------------------------------------------------------------------------------------------------------
     if char == '=':
         if st.session_state['last_operation'] and st.session_state['current_display']:
             calculate()
             st.session_state['last_operation'] = None
-            st.session_state['new_num'] = True # faz com que limpe o visor ----------------------------------------------------------------------------------------
+            st.session_state['new_num'] = True # faz com que limpe o visor ---------------------------------------------------------------------------------------
         return
 
     if char in ['+', '-', '*', '/']:
@@ -92,10 +92,10 @@ def handle_click(char):
             else:
                 st.session_state['total'] = float(st.session_state['current_display'])
             st.session_state['last_operation'] = char
-            st.session_state['new_num'] = True # Apos isso se iniciara um novo numero -----------------------------------------------------------------------------
+            st.session_state['new_num'] = True # Apos isso se iniciara um novo numero ----------------------------------------------------------------------------
         return
 
-    #Local dos números e pontos decimais --------------------------------------------------------------------------------------------------------------------------
+    #Local dos números e pontos decimais -------------------------------------------------------------------------------------------------------------------------
     if st.session_state['new_num']:
         st.session_state['current_display'] = str(char)
         st.session_state['new_num'] = False
@@ -124,7 +124,7 @@ def calculate():
                 return
 
         
-        #Adiciona o resultado da operação -------------------------------------------------------------------------------------------------------------------------
+        #Adiciona o resultado da operação ------------------------------------------------------------------------------------------------------------------------
         st.session_state['current_display'] = str(st.session_state['total'])
     except ValueError:
         st.session_state['current_display'] = "Erro"
@@ -133,7 +133,7 @@ def calculate():
 
 st.metric(label="Fassa sua conta aqui", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
 
-#aonde esta selecionados os buttons -------------------------------------------------------------------------------------------------------------------------------
+#aonde esta selecionados os buttons ------------------------------------------------------------------------------------------------------------------------------
 st.divider()
 
 buttons = [
@@ -143,7 +143,7 @@ buttons = [
     ['C', '0', '=', '+']
 ]
 
-# Cria as colunas de 4x4 ------------------------------------------------------------------------------------------------------------------------------------------
+# Cria as colunas de 4x4 -----------------------------------------------------------------------------------------------------------------------------------------
 for row in buttons:
     cols = st.columns(4) 
     for col, button_char in zip(cols, row):
