@@ -1,5 +1,5 @@
 import streamlit as st
-#Detalhes do programa ---------------------------------------------------------------------------------------------------------------------------------------------
+#Detalhes do site --------------------------------------------------------------------------------------------------------------------------------------------------
 st.markdown(
     """
 <style>
@@ -18,7 +18,7 @@ st.markdown("""
 
 /* Estilo específico para botões com as chaves de 'btn_1' a 'btn_9' */
 div[data-testid*="stButton"] > button {
-    background-color: black;
+    background-color: darkgray;
     color: white; /* Cor do texto para garantir visibilidade */
     border-radius: 5px;
     margin: 5px;
