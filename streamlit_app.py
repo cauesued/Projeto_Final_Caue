@@ -1,5 +1,16 @@
 import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #000080;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600) # A imagem
 
 st.divider() # Para criar as linhas
