@@ -4,13 +4,35 @@ st.markdown(
     """
 <style>
 .stApp {
-    background-color: white;
+    background-color: lightgray;
 }
 </style>
 """,
     unsafe_allow_html=True
 )
 
+st.markdown("""
+<style>
+/* Seletor geral para todos os botões, se desejar */
+/* .stButton button { background-color: black; color: white; } */
+
+/* Estilo específico para botões com as chaves de 'btn_1' a 'btn_9' */
+div[data-testid*="stButton"] > button {
+    background-color: black;
+    color: white; /* Cor do texto para garantir visibilidade */
+    border-radius: 5px;
+    margin: 5px;
+}
+
+/* Opcional: Efeito hover para os botões */
+div[data-testid*="stButton"] > button:hover {
+    background-color: #333333; /* Um cinza escuro no hover */
+    color: white;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.write("Clique nos botões abaixo:")
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600) # A imagem
 
 st.divider() # Para criar as linhas
