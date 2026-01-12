@@ -1,6 +1,5 @@
 import streamlit as st
 
-[theme]
 base="light"
 backgroundColor="white"
 secondaryBackgroundColor="lavender"
