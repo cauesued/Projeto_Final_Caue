@@ -1,8 +1,15 @@
 import streamlit as st
 
-base="light"
-backgroundColor="white"
-secondaryBackgroundColor="lavender"
+st.markdown(
+    """
+<style>
+.stApp {
+    background-color: white;
+}
+</style>
+""",
+    unsafe_allow_html=True
+)
 
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=600) # A imagem
 
