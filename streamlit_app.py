@@ -50,6 +50,7 @@ div.stButton > button:hover {
 
 #O site ensi -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+st.image("https://pt.dreamstime.com/%C3%ADcone-simples-do-glyph-da-calculadora-isolado-preto-vetor-image130878758")
 st.divider() # Para criar as linhas
 
 st.title("Projeto Final: Calculadora") # O titulo do projeto
