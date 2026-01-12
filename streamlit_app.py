@@ -13,6 +13,11 @@ st.markdown(
 
 st.markdown("""
 <style>
+/* Seletor geral para todos os botões, se desejar */
+/* .stButton button { background-color: black; color: white; } */
+
+/* Estilo específico para botões com as chaves de 'btn_1' a 'btn_9' */
+div[data-testid*="stButton"] > button {
     background-color: darkgray;
     color: white; /* Cor do texto para garantir visibilidade */
     border-radius: 5px;
