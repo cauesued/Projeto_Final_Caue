@@ -1,10 +1,10 @@
 import streamlit as st
-
+#Detalhes do programa ---------------------------------------------------------------------------------------------------------------------------------------------
 st.markdown(
     """
 <style>
 .stApp {
-    background-color: darkgray;
+    background-color: black;
 }
 </style>
 """,
