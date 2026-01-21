@@ -1,157 +1,129 @@
 import streamlit as st
-#Detalhes do site -----------------------------------------------------------------------------------------------------------------------------------------------
-st.markdown(
-    """
-<style>
-.stApp {
-    background-color: black;
-}
-</style>
-""",
-    unsafe_allow_html=True
-)
 
+# 1. Configuração da página (DEVE ser o primeiro comando Streamlit)
+st.set_page_config(page_title="Calculadora Pro", layout="centered")
+
+# 2. Estilização CSS Customizada
 st.markdown("""
 <style>
-/* Seletor geral para todos os botões, se desejar */
-/* .stButton button { background-color: black; color: white; } */
+    /* Fundo do App */
+    .stApp { background-color: #0E1117; }
+    
+    /* Estilo dos Botões */
+    div[data-testid="stButton"] button {
+        background-color: #262730;
+        color: white;
+        border: 1px solid #4B4B4B;
+        height: 60px;
+        font-size: 20px;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+    
+    /* Efeito Hover */
+    div[data-testid="stButton"] button:hover {
+        background-color: #FF4B4B;
+        border-color: #FF4B4B;
+        color: white;
+    }
 
-/* Estilo específico para botões com as chaves de 'btn_1' a 'btn_9' */
-div[data-testid*="stButton"] > button {
-    background-color: darkgray;
-    color: white; /* Cor do texto para garantir visibilidade */
-    border-radius: 5px;
-    margin: 5px;
-}
-
-/* Opcional: Efeito hover para os botões */
-div[data-testid*="stButton"] > button:hover {
-    background-color: #333333; /* Um cinza escuro no hover */
-    color: white;
-}
+    /* Estilo específico para o visor */
+    .stMetric {
+        background-color: #1E1E1E;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #FF4B4B;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-/* Seleciona o primeiro (e geralmente único) botão dentro de um div stButton */
-div.stButton > button:first-child {
-    color: #000000; /* Define a cor do texto como preto (código hexadecimal #000000) */
-    /* Você também pode querer ajustar a cor de fundo para garantir contraste */
-    /* background-color: #f0f0f0; */
-}
-
-/* Opcional: Estiliza o botão quando o mouse passa por cima (hover) */
-div.stButton > button:hover {
-    color: #000000; /* Mantém o texto preto no hover */
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=900) # A imagem
-#O site ensi -----------------------------------------------------------------------------------------------------------------------------------------------------
-
-st.divider() # Para criar as linhas
-
-st.title("Projeto Final: Calculadora") # O titulo do projeto
-
-st.set_page_config(layout="wide")
-
+# 3. Inicialização do State
 if 'current_display' not in st.session_state:
-    st.session_state['current_display'] = ''
+    st.session_state['current_display'] = '0'
 if 'total' not in st.session_state:
     st.session_state['total'] = 0.0
 if 'last_operation' not in st.session_state:
     st.session_state['last_operation'] = None
 if 'new_num' not in st.session_state:
-    st.session_state['new_num'] = False
+    st.session_state['new_num'] = True
+
+# 4. Funções de Lógica
+def calculate():
+    try:
+        current_val = float(st.session_state['current_display'])
+        op = st.session_state['last_operation']
+        
+        if op == '+': st.session_state['total'] += current_val
+        elif op == '-': st.session_state['total'] -= current_val
+        elif op == '*': st.session_state['total'] *= current_val
+        elif op == '/': 
+            if current_val != 0:
+                st.session_state['total'] /= current_val
+            else:
+                return "Erro: Div/0"
+        
+        # Formata para remover .0 se for inteiro
+        res = st.session_state['total']
+        return str(int(res)) if res.is_integer() else str(round(res, 4))
+    except Exception:
+        return "Erro"
 
 def handle_click(char):
-    """Gerencia cliques de números e operadores."""
-    
-    # para dar clean na tela -------------------------------------------------------------------------------------------------------------------------------------
     if char == 'C':
-        st.session_state['current_display'] = ''
+        st.session_state['current_display'] = '0'
         st.session_state['total'] = 0.0
         st.session_state['last_operation'] = None
-        st.session_state['new_num'] = False
-        return
-
-    #Local dos buttons de =, +, -, *, / --------------------------------------------------------------------------------------------------------------------------
-    if char == '=':
-        if st.session_state['last_operation'] and st.session_state['current_display']:
-            calculate()
-            st.session_state['last_operation'] = None
-            st.session_state['new_num'] = True # faz com que limpe o visor ---------------------------------------------------------------------------------------
+        st.session_state['new_num'] = True
         return
 
     if char in ['+', '-', '*', '/']:
-        if st.session_state['current_display']:
-            if st.session_state['last_operation']:
-                calculate()
-            else:
-                st.session_state['total'] = float(st.session_state['current_display'])
-            st.session_state['last_operation'] = char
-            st.session_state['new_num'] = True # Apos isso se iniciara um novo numero ----------------------------------------------------------------------------
+        if st.session_state['last_operation'] and not st.session_state['new_num']:
+            res = calculate()
+            st.session_state['current_display'] = res
+        else:
+            st.session_state['total'] = float(st.session_state['current_display'])
+        
+        st.session_state['last_operation'] = char
+        st.session_state['new_num'] = True
         return
 
-    #Local dos números e pontos decimais -------------------------------------------------------------------------------------------------------------------------
+    if char == '=':
+        if st.session_state['last_operation']:
+            res = calculate()
+            st.session_state['current_display'] = res
+            st.session_state['last_operation'] = None
+            st.session_state['new_num'] = True
+        return
+
+    # Entrada de Números
     if st.session_state['new_num']:
         st.session_state['current_display'] = str(char)
         st.session_state['new_num'] = False
     else:
-        
         if char == '.' and '.' in st.session_state['current_display']:
             return
         st.session_state['current_display'] += str(char)
 
-def calculate():
-    """Executa a operação pendente."""
-    try:
-        current_val = float(st.session_state['current_display'])
-        if st.session_state['last_operation'] == '+':
-            st.session_state['total'] += current_val
-        elif st.session_state['last_operation'] == '-':
-            st.session_state['total'] -= current_val
-        elif st.session_state['last_operation'] == '*':
-            st.session_state['total'] *= current_val
-        elif st.session_state['last_operation'] == '/':
-            if current_val != 0:
-                st.session_state['total'] /= current_val
-            else:
-                st.session_state['current_display'] = "Erro"
-                st.session_state['total'] = 0.0
-                return
+# 5. Interface Visual
+st.title("🔢 Calculadora Python")
+st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-puJcpOvnq50F4JR1O-g_mscVBpo25OmFEA&s', width=300)
 
-        
-        #Adiciona o resultado da operação ------------------------------------------------------------------------------------------------------------------------
-        st.session_state['current_display'] = str(st.session_state['total'])
-    except ValueError:
-        st.session_state['current_display'] = "Erro"
-    except ZeroDivisionError:
-        st.session_state['current_display'] = "Divisão por zero"
+# Visor
+st.metric(label="Resultado", value=st.session_state['current_display'])
 
-st.metric(label="Fassa sua conta aqui", value=st.session_state['current_display'] if st.session_state['current_display'] else "0")
-
-#aonde esta selecionados os buttons ------------------------------------------------------------------------------------------------------------------------------
 st.divider()
 
+# Grid de Botões
 buttons = [
-    ['7', '8', '9', '/.'],
-    ['4', '5', '6', '*.'],
-    ['1', '2', '3', '-.'],
-    ['C', '0', '=', '+.']
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['C', '0', '=', '+']
 ]
 
-# Cria as colunas de 4x4 -----------------------------------------------------------------------------------------------------------------------------------------
 for row in buttons:
-    cols = st.columns(4) 
-    for col, button_char in zip(cols, row):
-        with col:
-            st.button(
-                button_char, 
-                on_click=handle_click, 
-                args=[button_char], 
-                use_container_width=True 
-            )
+    cols = st.columns(4)
+    for col, char in zip(cols, row):
+        col.button(char, on_click=handle_click, args=[char], use_container_width=True)
 
+st.caption("Desenvolvido com Streamlit")
