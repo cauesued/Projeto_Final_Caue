@@ -1,24 +1,26 @@
 import streamlit as st
 
 st.set_page_config(page_title="Calculadora", page_icon="🧮", layout="centered")
-st.title("Calculadora com botões")
 
-# Helpers
-def format_number(n, max_chars=12):
-    """Formata número para exibição: remove zeros finais e limita tamanho."""
+# --- Helpers ---
+def format_number_str(s, max_chars=12):
+    """Formata string numérica para exibição curta."""
     try:
-        val = float(n)
+        val = float(s)
         if val.is_integer():
-            s = str(int(val))
+            out = str(int(val))
         else:
-            s = f"{val:.8f}".rstrip("0").rstrip(".")
+            out = f"{val:.8f}".rstrip("0").rstrip(".")
     except Exception:
-        s = str(n)
-    if len(s) > max_chars:
-        s = f"{float(n):.6e}"
-    return s
+        out = str(s)
+    if len(out) > max_chars:
+        try:
+            out = f"{float(s):.6e}"
+        except Exception:
+            out = out[:max_chars]
+    return out
 
-# Inicializa estado
+# --- Estado inicial ---
 if "display" not in st.session_state:
     st.session_state.display = "0"
 if "operand" not in st.session_state:
@@ -28,18 +30,19 @@ if "operator" not in st.session_state:
 if "reset_next" not in st.session_state:
     st.session_state.reset_next = False
 
-# Funções de ação
+# --- Ações ---
 def press_digit(d):
-    if st.session_state.reset_next or st.session_state.display == "0":
+    disp = st.session_state.display
+    if st.session_state.reset_next or disp == "0":
         st.session_state.display = d
         st.session_state.reset_next = False
     else:
-        if len(st.session_state.display) < 16:
-            st.session_state.display += d
+        if len(disp) < 16:
+            st.session_state.display = disp + d
 
 def press_dot():
     if st.session_state.reset_next:
         st.session_state.display = "0."
         st.session_state.reset_next = False
     elif "." not in st.session_state.display:
-        st.session
+        st.session_state
